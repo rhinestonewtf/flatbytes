@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import {Test, console} from "forge-std/Test.sol";
 import {AssociatedBytesLib} from "../src/BytesLib.sol";
 
-contract CounterTest is Test {
+contract BytesLibTest is Test {
     using AssociatedBytesLib for AssociatedBytesLib.Bytes;
     using AssociatedBytesLib for mapping(address => AssociatedBytesLib.Bytes);
 
@@ -13,7 +13,6 @@ contract CounterTest is Test {
     function setUp() public {}
 
     function test_store() public {
-
         bytes32 baseSlot;
         AssociatedBytesLib.Bytes storage bytesData = data[address(this)];
         assembly {
@@ -33,7 +32,6 @@ contract CounterTest is Test {
 
         assertEq(_d, d);
         assertEq(writes[0], baseSlot);
-
     }
 
     function test_mapping() public {
