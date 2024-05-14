@@ -2,23 +2,20 @@
 pragma solidity ^0.8.13;
 
 import {Test, console} from "forge-std/Test.sol";
-import {Counter} from "../src/Counter.sol";
+import {AssociatedBytesLib} from "../src/BytesLib.sol";
 
 contract CounterTest is Test {
-    Counter public counter;
+    using AssociatedBytesLib for AssociatedBytesLib.Bytes;
 
-    function setUp() public {
-        counter = new Counter();
-        counter.setNumber(0);
-    }
+    mapping(address account => AssociatedBytesLib.Bytes) internal data;
 
-    function test_Increment() public {
-        counter.increment();
-        assertEq(counter.number(), 1);
-    }
+    function setUp() public {}
 
-    function testFuzz_SetNumber(uint256 x) public {
-        counter.setNumber(x);
-        assertEq(counter.number(), x);
+    function test_store(bytes memory d) public {
+        data[address(this)].store(d);
+
+        bytes memory _d = data[address(this)].load();
+
+        assertEq(_d, d);
     }
 }
