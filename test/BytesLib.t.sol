@@ -11,8 +11,16 @@ contract CounterTest is Test {
 
     function setUp() public {}
 
-    function test_store(bytes memory d) public {
+    function test_store() public {
+        bytes memory d = hex"424141414141414141414141414141414141414141414141414141414141414141414143";
+        vm.record();
         data[address(this)].store(d);
+        (bytes32[] memory reads, bytes32[] memory writes) = vm.accesses(address(this));
+
+        console.log("writes");
+        for (uint256 i = 0; i < writes.length; i++) {
+            console.logBytes32(writes[i]);
+        }
 
         bytes memory _d = data[address(this)].load();
 
