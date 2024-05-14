@@ -87,7 +87,35 @@ library AssociatedBytesLib {
         }
     }
 
-    function load(Bytes storage self) internal view returns (bytes memory) {
+    function store(mapping(address => Bytes) storage associatedBytes, address account, bytes memory data) internal {
+        Bytes storage _bytes = associatedBytes[account];
+
+        if (data.length > 32 * 10) revert();
+        bytes32[] memory entries;
+        (_bytes.totalLength, entries) = data.toArray();
+
+        uint256 length = entries.length;
+
+        Data storage _data = _bytes.data;
+
+        for (uint256 i; i < length; i++) {
+            bytes32 value = entries[i];
+            uint256 slot = i;
+            assembly {
+                sstore(add(_data.slot, slot), value)
+            }
+        }
+    }
+
+    function load(Bytes storage self) internal view returns (bytes memory data) {
         return self.toBytes();
+    }
+
+    function load(mapping(address => Bytes) storage associatedBytes, address account)
+        internal
+        view
+        returns (bytes memory)
+    {
+        return associatedBytes[account].toBytes();
     }
 }
