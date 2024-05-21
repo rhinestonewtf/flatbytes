@@ -6,7 +6,23 @@
 
 ## Using the library
 
-todo
+In a contract, you can use the `AssociatedBytes` library to store bytes in a way that is compliant with the ERC-4337 standard:
+
+```solidity
+contract Example {
+    using AssociatedBytesLib for AssociatedBytesLib.Bytes;
+
+    AssociatedBytesLib.Bytes data;
+
+    function set(bytes memory _data) external {
+        data.store(_data);
+    }
+
+    function get() external view returns (bytes memory) {
+        return data.load();
+    }
+}
+```
 
 ## Using this repo
 
