@@ -28,6 +28,9 @@
   "dependencies": {
     "forge-std": "github:foundry-rs/forge-std"
   },
+  "devDependencies": {
+    "solhint": "^5.0.1"
+  },
   "files": [
     "src",
     "foundry.toml",
