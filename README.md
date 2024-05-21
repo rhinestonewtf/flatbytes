@@ -12,13 +12,17 @@ In a contract, you can use the `AssociatedBytes` library to store bytes in a way
 contract Example {
     using AssociatedBytesLib for AssociatedBytesLib.Bytes;
 
+    // Declare a variable to store the data
+    // Note: this can also be in a mapping or other data structure
     AssociatedBytesLib.Bytes data;
 
     function set(bytes memory _data) external {
+        // Store the data
         data.store(_data);
     }
 
     function get() external view returns (bytes memory) {
+        // Retrieve the data
         return data.load();
     }
 }
