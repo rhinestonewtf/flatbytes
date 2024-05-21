@@ -37,7 +37,10 @@
     "remappings.txt"
   ],
   "homepage": "https://github.com/rhinestonewtf/associatedBytesLib#readme",
-  "repository": "github:rhinestonewtf/associatedBytesLib",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhinestonewtf/associatedBytesLib.git"
+  },
   "bugs": {
     "url": "https://github.com/rhinestonewtf/associatedBytesLib/issues"
   },
