@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import {Test, console2} from "forge-std/Test.sol";
-import {AssociatedBytesLib} from "../src/BytesLib.sol";
+import { Test, console2 } from "forge-std/Test.sol";
+import { AssociatedBytesLib } from "../src/BytesLib.sol";
 
 contract GasTest is Test {
     using AssociatedBytesLib for AssociatedBytesLib.Bytes;
@@ -10,7 +10,7 @@ contract GasTest is Test {
     bytes _data;
     AssociatedBytesLib.Bytes _bytesData;
 
-    function setUp() public {}
+    function setUp() public { }
 
     function gasDiff(bytes memory d) public {
         uint256 gasSplit = gasleft();
@@ -28,7 +28,8 @@ contract GasTest is Test {
     }
 
     function testGas_Short() public {
-        bytes memory d = hex"424141414141414141414141414141414141414141414141414141414141414141414143";
+        bytes memory d =
+            hex"424141414141414141414141414141414141414141414141414141414141414141414143";
         gasDiff(d);
     }
 
@@ -41,7 +42,9 @@ contract GasTest is Test {
     function testGas_Long() public {
         bytes memory d;
         for (uint256 i = 0; i < 5; i++) {
-            d = abi.encodePacked(d, hex"424141414141414141414141414141414141414141414141414141414141414141414143");
+            d = abi.encodePacked(
+                d, hex"424141414141414141414141414141414141414141414141414141414141414141414143"
+            );
         }
         gasDiff(d);
     }

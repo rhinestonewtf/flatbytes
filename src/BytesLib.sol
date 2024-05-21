@@ -65,7 +65,11 @@ library AssociatedBytesLib {
                                     INTERNAL
     //////////////////////////////////////////////////////////////////////////*/
 
-    function toArray(bytes memory data) internal pure returns (uint256 totalLength, bytes32[] memory dataList) {
+    function toArray(bytes memory data)
+        internal
+        pure
+        returns (uint256 totalLength, bytes32[] memory dataList)
+    {
         // Find 32 bytes segments nb
         totalLength = data.length;
         if (totalLength > 32 * 10) revert();
