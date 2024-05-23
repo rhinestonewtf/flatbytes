@@ -39,7 +39,7 @@
   "homepage": "https://github.com/rhinestonewtf/associatedBytesLib#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rhinestonewtf/associatedBytesLib.git"
+    "url": "git+https://github.com/rhinestonewtf/associatedBytesLib.git"
   },
   "bugs": {
     "url": "https://github.com/rhinestonewtf/associatedBytesLib/issues"
