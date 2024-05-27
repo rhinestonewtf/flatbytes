@@ -9,16 +9,7 @@ library AssociatedBytesLib {
     //////////////////////////////////////////////////////////////////////////*/
 
     struct Data {
-        bytes32 slot1;
-        bytes32 slot2;
-        bytes32 slot3;
-        bytes32 slot4;
-        bytes32 slot5;
-        bytes32 slot6;
-        bytes32 slot7;
-        bytes32 slot8;
-        bytes32 slot9;
-        bytes32 slot10;
+        bytes32[10] slot1;
     }
 
     struct Bytes {
