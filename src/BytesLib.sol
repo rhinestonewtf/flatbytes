@@ -1,6 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.25;
 
+/**
+ * @title AssociatedBytesLib
+ * @dev Library for storing bytes data in consecutive contract slots
+ * @dev This is useful in the context of the ERC-4337 validation rules
+ * @dev Be careful that this does not override existing data in the next slots and ideally use this
+ * data as the value of a struct
+ * @author Rhinestone
+ */
 library AssociatedBytesLib {
     using AssociatedBytesLib for *;
 
@@ -8,10 +16,12 @@ library AssociatedBytesLib {
                                     DATA STRUCTURES
     //////////////////////////////////////////////////////////////////////////*/
 
+    // Data structure to store bytes in consecutive slots using an array
     struct Data {
         bytes32[10] slot1;
     }
 
+    // Store the length of the data and the data itself in consecutive slots
     struct Bytes {
         uint256 totalLength;
         Data data;
@@ -21,6 +31,12 @@ library AssociatedBytesLib {
                                     FUNCTIONS
     //////////////////////////////////////////////////////////////////////////*/
 
+    /**
+     * Store the data in storage
+     *
+     * @param self The storage to store the data in
+     * @param data The data to store
+     */
     function store(Bytes storage self, bytes memory data) internal {
         if (data.length > 32 * 10) revert();
         bytes32[] memory entries;
@@ -38,6 +54,11 @@ library AssociatedBytesLib {
         }
     }
 
+    /**
+     * Clear the data in storage
+     *
+     * @param self The storage to clear the data in
+     */
     function clear(Bytes storage self) internal {
         self.totalLength = 0;
         Data storage _data = self.data;
@@ -48,6 +69,13 @@ library AssociatedBytesLib {
         }
     }
 
+    /**
+     * Load the data from storage
+     *
+     * @param self The storage to load the data from
+     *
+     * @return data The data loaded from storage
+     */
     function load(Bytes storage self) internal view returns (bytes memory data) {
         return self.toBytes();
     }
@@ -56,6 +84,14 @@ library AssociatedBytesLib {
                                     INTERNAL
     //////////////////////////////////////////////////////////////////////////*/
 
+    /**
+     * Convert bytes to an array of bytes32
+     *
+     * @param data The data to convert
+     * @return totalLength The total length of the data
+     *
+     * @return dataList The data as an array of bytes32
+     */
     function toArray(bytes memory data)
         internal
         pure
@@ -81,6 +117,13 @@ library AssociatedBytesLib {
         }
     }
 
+    /**
+     * Convert an array of bytes32 to bytes
+     *
+     * @param self The array of bytes32 to convert
+     *
+     * @return data The data as bytes
+     */
     function toBytes(Bytes storage self) internal view returns (bytes memory data) {
         uint256 totalLength = self.totalLength;
         uint256 slotsCnt = totalLength / 32 + 1;
