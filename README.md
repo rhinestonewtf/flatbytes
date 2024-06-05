@@ -1,20 +1,20 @@
-# Associated Bytes Library
+# Flat Bytes Library
 
-**A library to use `bytes storage` in an ERC-4337 compliant way**
+**A library to store `bytes` in consecutive storage slots**
 
 > This repository is a work in progress and is not yet ready for production use.
 
 ## Using the library
 
-In a contract, you can use the `AssociatedBytes` library to store bytes in a way that is compliant with the ERC-4337 standard:
+In a contract, you can use the `FlatBytes` library to store bytes in a way that is compliant with the ERC-4337 standard:
 
 ```solidity
 contract Example {
-    using AssociatedBytesLib for AssociatedBytesLib.Bytes;
+    using FlatBytesLib for FlatBytesLib.Bytes;
 
     // Declare a variable to store the data
     // Note: this can also be in a mapping or other data structure
-    AssociatedBytesLib.Bytes data;
+    FlatBytesLib.Bytes data;
 
     function set(bytes memory _data) external {
         // Store the data

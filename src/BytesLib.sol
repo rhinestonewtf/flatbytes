@@ -2,15 +2,15 @@
 pragma solidity ^0.8.25;
 
 /**
- * @title AssociatedBytesLib
- * @dev Library for storing bytes data in consecutive contract slots
+ * @title FlatBytesLib
+ * @dev Library for storing bytes data in consecutive storage slots
  * @dev This is useful in the context of the ERC-4337 validation rules
  * @dev Be careful that this does not override existing data in the next slots and ideally use this
  * data as the value of a struct
  * @author Rhinestone
  */
-library AssociatedBytesLib {
-    using AssociatedBytesLib for *;
+library FlatBytesLib {
+    using FlatBytesLib for *;
 
     /*//////////////////////////////////////////////////////////////////////////
                                     DATA STRUCTURES

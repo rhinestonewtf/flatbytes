@@ -2,13 +2,13 @@
 pragma solidity ^0.8.13;
 
 import { Test, console2 } from "forge-std/Test.sol";
-import { AssociatedBytesLib } from "../src/BytesLib.sol";
+import { FlatBytesLib } from "../src/BytesLib.sol";
 
 contract GasTest is Test {
-    using AssociatedBytesLib for AssociatedBytesLib.Bytes;
+    using FlatBytesLib for FlatBytesLib.Bytes;
 
     bytes _data;
-    AssociatedBytesLib.Bytes _bytesData;
+    FlatBytesLib.Bytes _bytesData;
 
     function setUp() public { }
 

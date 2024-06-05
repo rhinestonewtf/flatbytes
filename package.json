@@ -1,7 +1,7 @@
 {
-  "name": "@rhinestone/associated-bytes-lib",
+  "name": "@rhinestone/flatbytes",
   "version": "0.0.1",
-  "description": "A library to use `bytes storage` in an ERC-4337 compliant way",
+  "description": "A library to store `bytes` in consecutive storage slots",
   "license": "MIT",
   "author": {
     "name": "Rhinestone",
@@ -36,13 +36,13 @@
     "foundry.toml",
     "remappings.txt"
   ],
-  "homepage": "https://github.com/rhinestonewtf/associatedBytesLib#readme",
+  "homepage": "https://github.com/rhinestonewtf/flatbytes#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rhinestonewtf/associatedBytesLib.git"
+    "url": "git+https://github.com/rhinestonewtf/flatbytes.git"
   },
   "bugs": {
-    "url": "https://github.com/rhinestonewtf/associatedBytesLib/issues"
+    "url": "https://github.com/rhinestonewtf/flatbytes/issues"
   },
   "keywords": [
     "account abstraction",

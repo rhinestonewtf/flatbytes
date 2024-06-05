@@ -2,14 +2,14 @@
 pragma solidity ^0.8.13;
 
 import { Test } from "forge-std/Test.sol";
-import { AssociatedBytesLib } from "../src/BytesLib.sol";
+import { FlatBytesLib } from "../src/BytesLib.sol";
 
 contract BytesLibTest is Test {
-    using AssociatedBytesLib for AssociatedBytesLib.Bytes;
-    using AssociatedBytesLib for mapping(address => AssociatedBytesLib.Bytes);
+    using FlatBytesLib for FlatBytesLib.Bytes;
+    using FlatBytesLib for mapping(address => FlatBytesLib.Bytes);
 
-    AssociatedBytesLib.Bytes data;
-    mapping(address account => AssociatedBytesLib.Bytes) internal dataMapping;
+    FlatBytesLib.Bytes data;
+    mapping(address account => FlatBytesLib.Bytes) internal dataMapping;
 
     function setUp() public { }
 
@@ -44,7 +44,7 @@ contract BytesLibTest is Test {
 
         assertEq(_storedData, _data);
 
-        AssociatedBytesLib.Bytes storage bytesStorage = dataMapping[address(2)];
+        FlatBytesLib.Bytes storage bytesStorage = dataMapping[address(2)];
         bytes32 dataSlot;
         assembly {
             dataSlot := bytesStorage.slot
