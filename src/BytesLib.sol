@@ -12,13 +12,17 @@ pragma solidity ^0.8.25;
 library FlatBytesLib {
     using FlatBytesLib for *;
 
+    error InvalidDataLength();
+
+    uint256 constant maxDataLength = 32;
+
     /*//////////////////////////////////////////////////////////////////////////
                                     DATA STRUCTURES
     //////////////////////////////////////////////////////////////////////////*/
 
     // Data structure to store bytes in consecutive slots using an array
     struct Data {
-        bytes32[10] slot1;
+        bytes32[maxDataLength] slot1;
     }
 
     // Store the length of the data and the data itself in consecutive slots
@@ -38,7 +42,7 @@ library FlatBytesLib {
      * @param data The data to store
      */
     function store(Bytes storage self, bytes memory data) internal {
-        if (data.length > 32 * 10) revert();
+        if (data.length > maxDataLength * 10) revert InvalidDataLength();
         bytes32[] memory entries;
         (self.totalLength, entries) = data.toArray();
 
@@ -99,8 +103,8 @@ library FlatBytesLib {
     {
         // Find 32 bytes segments nb
         totalLength = data.length;
-        if (totalLength > 32 * 10) revert();
-        uint256 dataNb = totalLength / 32 + 1;
+        if (totalLength > maxDataLength * 10) revert InvalidDataLength();
+        uint256 dataNb = totalLength / maxDataLength + 1;
 
         // Create an array of dataNb elements
         dataList = new bytes32[](dataNb);
@@ -126,7 +130,7 @@ library FlatBytesLib {
      */
     function toBytes(Bytes storage self) internal view returns (bytes memory data) {
         uint256 totalLength = self.totalLength;
-        uint256 slotsCnt = totalLength / 32 + 1;
+        uint256 slotsCnt = totalLength / maxDataLength + 1;
 
         Data storage _data = self.data;
 
