@@ -14,7 +14,7 @@ library FlatBytesLib {
 
     error InvalidDataLength();
 
-    uint256 constant maxDataLength = 32;
+    uint256 constant MAX_SLOT = 32;
 
     /*//////////////////////////////////////////////////////////////////////////
                                     DATA STRUCTURES
@@ -22,7 +22,7 @@ library FlatBytesLib {
 
     // Data structure to store bytes in consecutive slots using an array
     struct Data {
-        bytes32[maxDataLength] slot1;
+        bytes32[MAX_SLOT] slot1;
     }
 
     // Store the length of the data and the data itself in consecutive slots
@@ -42,7 +42,7 @@ library FlatBytesLib {
      * @param data The data to store
      */
     function store(Bytes storage self, bytes memory data) internal {
-        if (data.length > maxDataLength * 10) revert InvalidDataLength();
+        if (data.length > MAX_SLOT * 10) revert InvalidDataLength();
         bytes32[] memory entries;
         (self.totalLength, entries) = data.toArray();
 
@@ -103,8 +103,9 @@ library FlatBytesLib {
     {
         // Find 32 bytes segments nb
         totalLength = data.length;
-        if (totalLength > maxDataLength * 10) revert InvalidDataLength();
-        uint256 dataNb = totalLength / maxDataLength + 1;
+        if (totalLength > MAX_SLOT * 10) revert InvalidDataLength();
+        // uint256 dataNb = totalLength / maxDataLength + 1;
+        uint256 dataNb = (totalLength + 31) / MAX_SLOT;
 
         // Create an array of dataNb elements
         dataList = new bytes32[](dataNb);
@@ -130,7 +131,7 @@ library FlatBytesLib {
      */
     function toBytes(Bytes storage self) internal view returns (bytes memory data) {
         uint256 totalLength = self.totalLength;
-        uint256 slotsCnt = totalLength / maxDataLength + 1;
+        uint256 slotsCnt = totalLength / MAX_SLOT + 1;
 
         Data storage _data = self.data;
 
