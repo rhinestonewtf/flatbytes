@@ -131,7 +131,7 @@ library FlatBytesLib {
      */
     function toBytes(Bytes storage self) internal view returns (bytes memory data) {
         uint256 totalLength = self.totalLength;
-        uint256 slotsCnt = totalLength / MAX_SLOT + 1;
+        uint256 slotsCnt = (totalLength + 31) / MAX_SLOT;
 
         Data storage _data = self.data;
 
