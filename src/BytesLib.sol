@@ -14,7 +14,7 @@ library FlatBytesLib {
 
     error InvalidDataLength();
 
-    uint256 constant MAX_SLOT = 32;
+    uint256 private constant MAX_SLOT = 32;
 
     /*//////////////////////////////////////////////////////////////////////////
                                     DATA STRUCTURES
@@ -42,7 +42,7 @@ library FlatBytesLib {
      * @param data The data to store
      */
     function store(Bytes storage self, bytes memory data) internal {
-        if (data.length > MAX_SLOT * 10) revert InvalidDataLength();
+        if (data.length > MAX_SLOT * 32) revert InvalidDataLength();
         bytes32[] memory entries;
         (self.totalLength, entries) = data.toArray();
 
@@ -66,7 +66,7 @@ library FlatBytesLib {
     function clear(Bytes storage self) internal {
         self.totalLength = 0;
         Data storage _data = self.data;
-        for (uint256 i; i < 10; i++) {
+        for (uint256 i; i < MAX_SLOT; i++) {
             assembly {
                 sstore(add(_data.slot, i), 0)
             }
@@ -103,9 +103,9 @@ library FlatBytesLib {
     {
         // Find 32 bytes segments nb
         totalLength = data.length;
-        if (totalLength > MAX_SLOT * 10) revert InvalidDataLength();
+        if (totalLength > MAX_SLOT * 32) revert InvalidDataLength();
         // uint256 dataNb = totalLength / maxDataLength + 1;
-        uint256 dataNb = (totalLength + 31) / MAX_SLOT;
+        uint256 dataNb = (totalLength + 31) / 32;
 
         // Create an array of dataNb elements
         dataList = new bytes32[](dataNb);
@@ -131,7 +131,7 @@ library FlatBytesLib {
      */
     function toBytes(Bytes storage self) internal view returns (bytes memory data) {
         uint256 totalLength = self.totalLength;
-        uint256 slotsCnt = (totalLength + 31) / MAX_SLOT;
+        uint256 slotsCnt = (totalLength + 31) / 32;
 
         Data storage _data = self.data;
 
