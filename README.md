@@ -9,6 +9,8 @@
 In a contract, you can use the `FlatBytes` library to store bytes in a way that is compliant with the ERC-4337 standard:
 
 ```solidity
+import { FlatBytesLib } from "flatbytes/BytesLib.sol";
+
 contract Example {
     using FlatBytesLib for FlatBytesLib.Bytes;
 
