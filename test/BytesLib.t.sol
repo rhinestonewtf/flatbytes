@@ -8,7 +8,9 @@ contract BytesLibTest is Test {
     using FlatBytesLib for FlatBytesLib.Bytes;
     using FlatBytesLib for mapping(address => FlatBytesLib.Bytes);
 
+    uint256 u;
     FlatBytesLib.Bytes data;
+    uint256 p;
     mapping(address account => FlatBytesLib.Bytes) internal dataMapping;
 
     function setUp() public { }
@@ -58,5 +60,13 @@ contract BytesLibTest is Test {
 
         bytes memory _d = data.load();
         assertEq(_d.length, 0);
+    }
+
+    function test_flatBytesLibOverflow() public {
+        u = 1337;
+        p = 1337;
+        data.store(new bytes(320));
+        assertEq(u, 1337);
+        assertEq(p, 1337);
     }
 }
